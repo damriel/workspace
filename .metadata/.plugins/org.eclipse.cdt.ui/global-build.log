@@ -307,3 +307,33 @@ compilation terminated.
 Info: Internal Builder is used for build
 gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\utn.o" "..\\src\\utn.c" 
 gcc -o Practica_Clase4.exe "src\\Practica_Clase4.o" "src\\utn.o" 
+00:52:21 **** Incremental Build of configuration Debug for project Practica_Clase4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Practica_Clase4.o" "..\\src\\Practica_Clase4.c" 
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\utn.o" "..\\src\\utn.c" 
+gcc -o Practica_Clase4.exe "src\\Practica_Clase4.o" "src\\utn.o" 
+00:54:03 **** Incremental Build of configuration Debug for project Practica_Clase4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Practica_Clase4.o" "..\\src\\Practica_Clase4.c" 
+..\src\Practica_Clase4.c: In function 'main':
+..\src\Practica_Clase4.c:47:28: warning: format '%d' expects argument of type 'int', but argument 2 has type 'double' [-Wformat=]
+   47 |   printf("El flotante es: %d",flotante);
+      |                           ~^  ~~~~~~~~
+      |                            |  |
+      |                            |  double
+      |                            int
+      |                           %f
+..\src\Practica_Clase4.c:19:6: warning: unused variable 'peso' [-Wunused-variable]
+   19 |  int peso;
+      |      ^~~~
+gcc -o Practica_Clase4.exe "src\\Practica_Clase4.o" "src\\utn.o" 
+00:54:19 **** Incremental Build of configuration Debug for project Practica_Clase4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Practica_Clase4.o" "..\\src\\Practica_Clase4.c" 
+gcc -o Practica_Clase4.exe "src\\Practica_Clase4.o" "src\\utn.o" 
+Info: Nothing to build for Practica_Clase4
+00:55:01 **** Incremental Build of configuration Debug for project Practica_Clase4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Practica_Clase4.o" "..\\src\\Practica_Clase4.c" 
+gcc -o Practica_Clase4.exe "src\\Practica_Clase4.o" "src\\utn.o" 
+Info: Nothing to build for Practica_Clase4

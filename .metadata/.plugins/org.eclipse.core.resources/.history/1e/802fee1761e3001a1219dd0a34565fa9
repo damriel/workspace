@@ -1,7 +1,7 @@
 /*
  ============================================================================
  Name        : Practica_Clase4.c
- Author      : Damriel
+ Author      : 
  Version     :
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style
@@ -16,14 +16,14 @@ int main(void) {
 	setbuf(stdout,NULL); //ESTO VA SIEMPRE EN WINDOWS
 
 	int edad;
-	float flotante;
+	int peso;
 	char letra;
 	int respuesta;
 
 	respuesta = utn_getCharLimited(&letra, "Letra? \n", "Error, letra debe ser desde A a J\n", 'A', 'J', 1);
 	if(respuesta == 0)
 	{
-		printf("\nLa letra es: %c\n",letra);
+		printf("\nLa letra es: %c",letra);
 	}
 	else
 	{
@@ -33,17 +33,17 @@ int main(void) {
 	respuesta = utn_getIntLimited(&edad, "Edad? \n", "Error, la edad debe ser desde 0 a 199\n", 0, 199, 2);
 	if(respuesta == 0)
 	{
-		printf("La edad es: %d\n",edad);
+		printf("La edad es: %d",edad);
 	}
 	else
 	{
 		printf("ERROR.\n");
 	}
 
-	respuesta = utn_getFloatLimited(&flotante, "Flotante? \n", "Error, flotante debe ser desde -999 a 999\n", -999, 999, 4);
+	respuesta = utn_getIntLimited(&peso, "Peso? \n", "Error, peso debe ser desde 0 a 500\n", 0, 500, 3);
 	if(respuesta == 0)
 	{
-		printf("El flotante es: %f\n",flotante);
+		printf("El peso es: %d",peso);
 	}
 	else
 	{
