@@ -1,0 +1,7 @@
+00:33:07 **** Incremental Build of configuration Debug for project Practica_Clase4 ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\utn.o" "..\\src\\utn.c" 
+gcc -o Practica_Clase4.exe "src\\Practica_Clase4.o" "src\\utn.o" 
+
+00:33:08 Build Finished. 0 errors, 0 warnings. (took 732ms)
+

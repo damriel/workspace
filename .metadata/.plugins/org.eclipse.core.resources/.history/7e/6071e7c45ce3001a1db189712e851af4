@@ -1,0 +1,64 @@
+/*
+ * utn.c
+ *
+ *  Created on: 20 ago. 2020
+ *      Author: Damriel
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int utn_getIntLimited(int* pResultado, char* mensaje, char* mensajeError, int minimo, int maximo, int reintentos)
+{
+	int retorno = -1;
+	int bufferInt;
+	int i;
+
+	if(pResultado!=NULL && mensaje!=NULL && mensajeError!=NULL && minimo<=maximo && reintentos>=0)
+	{
+		for(i=0; i<=reintentos; i++)
+		{
+			printf("%s",mensaje);
+			scanf("%d",&bufferInt);
+			if(bufferInt>=minimo && bufferInt<=maximo)
+			{
+				*pResultado=bufferInt;
+				retorno=0;
+				break;
+			}
+			else
+			{
+				printf("%s",mensajeError);
+			}
+		}
+	}
+	return retorno;
+}
+
+int utn_getCharLimited(char* pResultado, char* mensaje, char* mensajeError, char minimo, char maximo, int reintentos)
+{
+	int retorno = -1;
+	char bufferChar;
+	int i;
+
+	if(pResultado!=NULL && mensaje!=NULL && mensajeError!=NULL && minimo<=maximo && reintentos>=0)
+	{
+		do
+		{
+			printf("%s",mensaje);
+			scanf("%d",&bufferChar);
+			if(bufferChar>=minimo && bufferChar<=maximo)
+			{
+				*pResultado=bufferChar;
+				retorno=0;
+				break;
+			}
+			else
+			{
+				printf("%s",mensajeError);
+				reintentos--;
+			}
+		}while(reintentos>=0)
+	}
+	return retorno;
+}
