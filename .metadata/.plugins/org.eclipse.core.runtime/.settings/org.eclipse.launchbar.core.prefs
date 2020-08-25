@@ -1,8 +1,11 @@
 LaunchTargetManager/configs/Practica_Clase4.exe=org.eclipse.launchbar.core.launchTargetType.local\:Local
+LaunchTargetManager/configs/Practica_Clase5.exe=org.eclipse.launchbar.core.launchTargetType.local\:Local
+LaunchTargetManager/configs/Practica_Clase5_Burbujeo.exe=org.eclipse.launchbar.core.launchTargetType.local\:Local
+LaunchTargetManager/configs/Practica_Clase6.exe=org.eclipse.launchbar.core.launchTargetType.local\:Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.launchbar.core.descriptorType.default\:Practica_Clase4.exe
+configDescList=org.eclipse.launchbar.core.descriptorType.default\:Practica_Clase4.exe,org.eclipse.launchbar.core.descriptorType.default\:Practica_Clase5.exe,org.eclipse.launchbar.core.descriptorType.default\:Practica_Clase5_Burbujeo.exe,org.eclipse.launchbar.core.descriptorType.default\:Practica_Clase6.exe
 eclipse.preferences.version=1
 org.eclipse.launchbar.core.descriptorType.default\:Practica_Clase4.exe/activeLaunchMode=run
 org.eclipse.launchbar.core.descriptorType.default\:Practica_Clase4.exe/activeLaunchTarget=org.eclipse.launchbar.core.launchTargetType.local\:Local
