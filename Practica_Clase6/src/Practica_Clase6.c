@@ -8,7 +8,7 @@
  ============================================================================
  */
 
-/** LISTADO DE FUNCIONES DE string.h **/
+/** LISTADO DE FUNCIONES UTILES DE string.h **/
 /*
 strncpy(auxiliar, nombre, sizeof(auxiliar); Recibe el array de "nombre" lo copia a "auxiliar" y el sizeof se utiliza para no desbordar la memoria.
 strnlen(nombre,sizeof(nombre)); Devuelve el tamaño ocupado por el texto que tiene el array "nombre".
@@ -24,7 +24,7 @@ snprintf(auxiliar, sizeof(auxiliar), "OTRO TEXTO DE PRUEBA "); se guarda en "aux
 
 int main(void) {
 	setbuf(stdout,NULL); //ESTO VA SIEMPRE EN WINDOWS
-	int auxInt;
+	char letra;
 	/*
 	char nombre[11]="JUAN"; // SOLO SE LE PUEDE ASIGNAR EN LA LINEA DE INICIALIZACION.
 	char auxiliar[30]="";
@@ -45,9 +45,9 @@ int main(void) {
 
 	while(1)
 	{
-		if(utn_getNumero(&auxInt,"Numero?: ","ERROR\n",-2,10,2) == 0)
+		if(utn_getCharSimple(&letra,"Caracter imprimible?: ","Lo ingresado no es caracter imprimible.\n") == 0)
 		{
-			printf("El numero es: %d\n",auxInt);
+			printf("El caracter es: %c\n",letra);
 		}
 	}
 
