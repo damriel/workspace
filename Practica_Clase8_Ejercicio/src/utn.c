@@ -15,12 +15,14 @@ static int myGets(char* cadena, int longitud);
 static int esNumerica(char* cadena, int limite);
 static int getInt(int* pResultado);
 /*** FLOAT ***/
-static int esFlotante(char* cadena);
+static int esFlotante(char* cadena, int limite);
 static int getFloat(float* pResultado);
 /*** CHAR ***/
 static int myGetsForChar(char* cadena, int longitud);
 static int esCaracter(char* cadena);
 static int getChar(char* pResultado);
+/*** STRING ***/
+static int esLetras(char* cadena, int limite);
 
 /**
  * \brief Lee de stdin hasta que encuentra un '\n'o hasta que haya copiado en cadena un maximo de 'longitud - 1' caracteres.
@@ -103,7 +105,7 @@ static int getInt(int* pResultado)
 }
 
 /**
- * \brief Solicita un numero al usuario, luego de verificarlo devuelve el resultado
+ * \brief Solicita un numero entero al usuario, luego de verificarlo devuelve el resultado
  * \param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
  * \param mensaje Es el mensaje a ser mostrado.
  * \param mensajeError Es el mensaje de error a ser mostrado.
@@ -137,7 +139,7 @@ int utn_getIntLimited(int* pResultado, char* mensaje, char* mensajeError, int mi
 }
 
 /**
- * \brief Solicita un numero al usuario, luego de verificarlo devuelve el resultado, itera hasta que se ingrese un numero valido
+ * \brief Solicita un numero entero al usuario, luego de verificarlo devuelve el resultado. Itera hasta que se ingrese un numero valido.
  * \param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
  * \param mensaje Es el mensaje a ser mostrado.
  * \param mensajeError Es el mensaje de error a ser mostrado.
@@ -154,7 +156,7 @@ int utn_getIntSimple(int* pResultado, char* mensaje, char* mensajeError)
 		do
 		{
 			printf("%s",mensaje);
-			if(getInt(&buffer)==0)
+			if(!getInt(&buffer))
 			{
 				*pResultado=buffer;
 				retorno = 0;
@@ -166,68 +168,54 @@ int utn_getIntSimple(int* pResultado, char* mensaje, char* mensajeError)
 	return retorno;
 }
 
-/***********************************************************************************************************************************************************************************************************/
-/***********************************************************************************************************************************************************************************************************/
-/***********************************************************************************************************************************************************************************************************/
-/***********************************************************************************************************************************************************************************************************/
-
-static int esFlotante(char* cadena)
+/**
+ * \brief Verifica si la cadena ingresada es un numero flotante.
+ * \param cadena Cadena de caracteres a ser analizada.
+ * \param limite Define el tamaño de la cadena.
+ * \return Retorna 1 (Verdadero) si la cadena es un numero flotante, 0 (Falso) si no lo es y -1 (Error) en caso de error
+ *
+ */
+static int esFlotante(char* cadena, int limite)
 {
 	int retorno=1;
 	int i=0;
 	int contadorComa=0;
-	int flagNegativo=0;
 
-	if(cadena[0]=='-')
+	for(i=0; i<limite && cadena[i]!='\0'; i++)
 	{
-		i=1;
-		flagNegativo=1;
-	}
-	for( ; cadena[i]!='\0'; i++)
-	{
+		if(i==0 && (cadena[i]=='-' || cadena[i]=='+'))
+		{
+			continue;
+		}
 		if((cadena[i]>'9' || cadena[i]<'0') && cadena[i]!='.')
 		{
 			retorno=0;
 			break;
 		}
-		else if(cadena[i]=='.' && flagNegativo==1)
+		else if(cadena[i]=='.')
 		{
-			if(i==1)
+			contadorComa++;
+			if(contadorComa>1)
 			{
 				retorno=0;
-				break;
-			}
-			else
-			{
-				contadorComa++;
 			}
 		}
-		else if(cadena[i]=='.' && flagNegativo==0)
-		{
-			if(i==0)
-			{
-				retorno=0;
-				break;
-			}
-			else
-			{
-				contadorComa++;
-			}
-		}
-	}
-	if(contadorComa>1)
-	{
-		retorno=0;
 	}
 	return retorno;
 }
 
+/**
+ * \brief Obtiene un numero flotante
+ * \param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
+ * \return Retorna 0 (EXITO) si se obtiene un numero entero y -1 (ERROR) si no.
+ *
+ */
 static int getFloat(float* pResultado)
 {
 	int retorno=-1;
 	char buffer[4096];
 
-	if(myGets(buffer, sizeof(buffer)) && esFlotante(buffer))
+	if(pResultado!=NULL && !myGets(buffer, sizeof(buffer)) && esFlotante(buffer,sizeof(buffer)))
 	{
 		*pResultado = atof(buffer);
 		retorno = 0;
@@ -235,6 +223,17 @@ static int getFloat(float* pResultado)
 	return retorno;
 }
 
+/**
+ * \brief Solicita un numero flotante al usuario, luego de verificarlo devuelve el resultado
+ * \param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
+ * \param mensaje Es el mensaje a ser mostrado.
+ * \param mensajeError Es el mensaje de error a ser mostrado.
+ * \param minimo Es el numero minimo a ser aceptado.
+ * \param maximo Es el numero maximo a ser aceptado.
+ * \param reintentos Es la cantidad de reintentos que tiene el usuario.
+ * \return Retorna 0 si se obtuvo el numero flotante y -1 si no.
+ *
+ */
 int utn_getFloatLimited(float* pResultado, char* mensaje, char* mensajeError, float minimo, float maximo, int reintentos)
 {
 	int retorno = -1;
@@ -245,7 +244,7 @@ int utn_getFloatLimited(float* pResultado, char* mensaje, char* mensajeError, fl
 		do
 		{
 			printf("%s",mensaje);
-			if(getFloat(&buffer)==0 && buffer>=minimo && buffer<=maximo)
+			if(!getFloat(&buffer) && buffer>=minimo && buffer<=maximo)
 			{
 				*pResultado=buffer;
 				retorno = 0;
@@ -258,6 +257,14 @@ int utn_getFloatLimited(float* pResultado, char* mensaje, char* mensajeError, fl
 	return retorno;
 }
 
+/**
+ * \brief Solicita un numero flotante al usuario, luego de verificarlo devuelve el resultado. Itera hasta que se ingrese un numero valido.
+ * \param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
+ * \param mensaje Es el mensaje a ser mostrado.
+ * \param mensajeError Es el mensaje de error a ser mostrado.
+ * \return Retorna 0 si se obtuvo el numero flotante y -1 si no.
+ *
+ */
 int utn_getFloatSimple(float* pResultado, char* mensaje, char* mensajeError)
 {
 	int retorno = -1;
@@ -268,7 +275,7 @@ int utn_getFloatSimple(float* pResultado, char* mensaje, char* mensajeError)
 		do
 		{
 			printf("%s",mensaje);
-			if(getFloat(&buffer)==0)
+			if(!getFloat(&buffer))
 			{
 				*pResultado=buffer;
 				retorno = 0;
@@ -281,18 +288,57 @@ int utn_getFloatSimple(float* pResultado, char* mensaje, char* mensajeError)
 }
 
 /***********************************************************************************************************************************************************************************************************/
-/***********************************************************************************************************************************************************************************************************/
-/***********************************************************************************************************************************************************************************************************/
-/***********************************************************************************************************************************************************************************************************/
+
+/*
+static int myGets(char* cadena, int longitud)
+{
+	int retorno=-1;
+	char bufferString[4096];
+
+	if(cadena!=NULL && longitud>0)
+	{
+		fflush(stdin);
+		if(fgets(bufferString,sizeof(bufferString),stdin) != NULL) //fgets devuelve el puntero a bufferString si esta todo bien, sino devuelve NULL
+		{
+			if(bufferString[strnlen(bufferString,sizeof(bufferString))-1] == '\n')
+			{
+				bufferString[strnlen(bufferString,sizeof(bufferString))-1] = '\0';
+			}
+			if(strnlen(bufferString,sizeof(bufferString))<=longitud)
+			{
+				strncpy(cadena,bufferString,longitud);
+				retorno=0;
+			}
+		}
+	}
+	return retorno;
+}
+ */
 
 static int myGetsForChar(char* cadena, int longitud)
 {
-	int retorno=0;
-	if(cadena!=NULL && longitud>0 && fgets(cadena,longitud,stdin)==cadena && cadena[1]=='\n')
+	int retorno=-1;
+	char bufferString[4096];
+
+	if(cadena!=NULL && longitud>0)
 	{
 		fflush(stdin);
-		cadena[1]='\0';
-		retorno=1;
+		if(fgets(bufferString,sizeof(bufferString),stdin)!=NULL)
+		{
+			if(bufferString[strnlen(bufferString,sizeof(bufferString))-1]=='\n')
+			{
+				bufferString[strnlen(bufferString,sizeof(bufferString))-1] = '\0';
+			}
+			if(strnlen(bufferString,sizeof(bufferString))==1)
+			{
+				strncpy(cadena,bufferString,longitud);
+				retorno=0;
+			}
+			else
+			{
+				retorno=-2;
+			}
+		}
 	}
 
 	return retorno;
@@ -302,7 +348,7 @@ static int esCaracter(char* cadena)
 {
 	int retorno=1;
 
-	if(cadena[0]<' ' || cadena[0]>'~') //SOLO CARACTERES ASCII IMPRIMIBLES (NO EXTENDIDOS)
+	if(cadena==NULL || cadena[0]<' ' || cadena[0]>'~') //SOLO CARACTERES ASCII IMPRIMIBLES (NO EXTENDIDOS)
 	{
 		retorno=0;
 	}
@@ -314,7 +360,7 @@ static int getChar(char* pResultado)
 	int retorno=-1;
 	char buffer[4096];
 
-	if(myGetsForChar(buffer, sizeof(buffer)) && esCaracter(buffer))
+	if(!myGetsForChar(buffer, sizeof(buffer)) && esCaracter(buffer))
 	{
 		*pResultado = buffer[0];
 		retorno = 0;
@@ -332,7 +378,7 @@ int utn_getCharLimited(char* pResultado, char* mensaje, char* mensajeError, char
 		do
 		{
 			printf("%s",mensaje);
-			if(getChar(&buffer)==0 && buffer>=minimo && buffer<=maximo)
+			if(!getChar(&buffer) && buffer>=minimo && buffer<=maximo)
 			{
 				*pResultado=buffer;
 				retorno = 0;
@@ -355,7 +401,7 @@ int utn_getCharSimple(char* pResultado, char* mensaje, char* mensajeError)
 		do
 		{
 			printf("%s",mensaje);
-			if(getChar(&buffer)==0)
+			if(!getChar(&buffer))
 			{
 				*pResultado=buffer;
 				retorno = 0;
@@ -363,6 +409,118 @@ int utn_getCharSimple(char* pResultado, char* mensaje, char* mensajeError)
 			}
 			printf("%s",mensajeError);
 		}while(retorno==-1);
+	}
+	return retorno;
+}
+
+/**********************************************************************************************************************************************************************************/
+
+/**
+ * \brief Verifica si la cadena ingresada esta compuesta solo de letras 'a-z' y 'A-Z'.
+ * \param cadena Cadena de caracteres a ser analizada.
+ * \param limite Define el tamaño de la cadena.
+ * \return Retorna 1 (Verdadero) si la cadena solo de letras, 0 (Falso) si no lo es y -1 (Error) en caso de error
+ *
+ */
+static int esLetras(char* cadena, int limite)
+{
+	int retorno=-1;
+	int i;
+
+	if(cadena!=NULL && limite>0)
+	{
+		retorno=1;
+		for(i=0; i<limite && cadena[i]!='\0'; i++)
+		{
+			if((cadena[i]<'a' || cadena[i]>'z')&&(cadena[i]<'A' || cadena[i]>'Z'))
+			{
+				retorno=0;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
+
+/**
+ * \brief Obtiene un numero entero
+ * \param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
+ * \return Retorna 0 (EXITO) si se obtiene un numero entero y -1 (ERROR) si no.
+ *
+ */
+static int getString(char* pResultado, int limite)
+{
+	int retorno=-1;
+	char bufferString[50];
+	if(pResultado!=NULL && !myGets(bufferString,sizeof(bufferString)) && esLetras(bufferString,sizeof(bufferString)))
+	{
+		strncpy(pResultado,bufferString,limite);
+		retorno = 0;
+	}
+	return retorno;
+}
+
+/**
+ * \brief Solicita una palabra, luego de verificarlo devuelve el resultado
+ * \param pResultado Puntero al espacio de memoria donde se dejara el resultado de la funcion
+ * \param mensaje Es el mensaje a ser mostrado.
+ * \param mensajeError Es el mensaje de error a ser mostrado.
+ * \param reintentos Es la cantidad de reintentos que tiene el usuario.
+ * \return Retorna 0 si se obtuvo una palabra y -1 si no.
+ *
+ */
+int utn_getSoloLetras(char* pResultado, int limite, char* mensaje, char* mensajeError, int reintentos)
+{
+	int retorno = -1;
+	char bufferString[4096];
+
+	if(pResultado!=NULL && mensaje!=NULL && mensajeError!=NULL && reintentos>=0)
+	{
+		do
+		{
+			printf("%s",mensaje);
+			if(!getString(bufferString, limite))
+			{
+				strncpy(pResultado,bufferString,limite);
+				retorno = 0;
+				break;
+			}
+			reintentos--;
+			printf("%s",mensajeError);
+		}while(reintentos>=0);
+	}
+	return retorno;
+}
+
+int ordenarArrayInt(int* pArray, int limite)
+{
+	int retorno=-1;
+	int flagSwap;
+	int i;
+	int contador=0;
+	int buffer;
+	int nuevoLimite;
+
+	if(pArray!=NULL && limite>=0)
+	{
+		nuevoLimite=limite-1;
+		do
+		{
+			flagSwap=0;
+			for(i=0; i<nuevoLimite; i++)
+			{
+				if(pArray[i]<pArray[i+1])
+				{
+					flagSwap=1;
+					buffer=pArray[i];
+					pArray[i]=pArray[i+1];
+					pArray[i+1]=buffer;
+				}
+				contador++;
+			}
+			nuevoLimite--;
+		}while(flagSwap);
+		retorno=contador;
 	}
 	return retorno;
 }

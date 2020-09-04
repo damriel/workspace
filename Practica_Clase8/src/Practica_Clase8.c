@@ -11,21 +11,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct
-{
-	int legajo;
-	char nombre[51];
-	float altura;
-}Alumno;
+#include "utn.h"
+#include "Alumno.h"
+#define QTY_ALUMNOS 1000
 
 int main(void) {
 	setbuf(stdout,NULL);
 	Alumno auxiliar;
+	Alumno arrayAlumnos[QTY_ALUMNOS];
+
+	inicializarArrayAlumnos(arrayAlumnos, QTY_ALUMNOS);
+
 	auxiliar.altura = 2.04;
 	auxiliar.legajo = 25;
 	strcpy(auxiliar.nombre,"Juan");
+	auxiliar.isEmpty = 0;
 
-	printf("Nombre: %s - Legajo: %d - Altura: %f", auxiliar.nombre,auxiliar.legajo,auxiliar.altura);
+	//printf("Nombre: %s - Legajo: %d - Altura: %f", auxiliar.nombre,auxiliar.legajo,auxiliar.altura);
+
+	arrayAlumnos[2] = auxiliar; //Se copia todo el conjunto de datos dentro de auxiliar a la posicion 2 del array.
+
+	imprimirArrayAlumnos(arrayAlumnos, QTY_ALUMNOS);
+
 	return EXIT_SUCCESS;
 }

@@ -1,5 +1,28 @@
-01:15:47 **** Incremental Build of configuration Debug for project Practica_Clase8 ****
+01:59:59 **** Incremental Build of configuration Debug for project Practica_Clase8_Ejercicio ****
 Info: Internal Builder is used for build
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Practica_Clase8.o" "..\\src\\Practica_Clase8.c" 
-gcc -o Practica_Clase8.exe "src\\Practica_Clase8.o" "src\\utn.o" 
-Info: Nothing to build for Practica_Clase8
+gcc -o Practica_Clase8_Ejercicio.exe "src\\Persona.o" "src\\Practica_Clase8_Ejercicio.o" "src\\utn.o" 
+Info: Nothing to build for Practica_Clase8_Ejercicio
+Info: Nothing to build for Practica_Clase8_Ejercicio
+02:03:47 **** Incremental Build of configuration Debug for project Practica_Clase8_Ejercicio ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Persona.o" "..\\src\\Persona.c" 
+gcc -o Practica_Clase8_Ejercicio.exe "src\\Persona.o" "src\\Practica_Clase8_Ejercicio.o" "src\\utn.o" 
+Info: Nothing to build for Practica_Clase8_Ejercicio
+02:05:20 **** Incremental Build of configuration Debug for project Practica_Clase8_Ejercicio ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Persona.o" "..\\src\\Persona.c" 
+gcc -o Practica_Clase8_Ejercicio.exe "src\\Persona.o" "src\\Practica_Clase8_Ejercicio.o" "src\\utn.o" 
+Info: Nothing to build for Practica_Clase8_Ejercicio
+02:08:56 **** Incremental Build of configuration Debug for project Practica_Clase8_Ejercicio ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Persona.o" "..\\src\\Persona.c" 
+gcc -o Practica_Clase8_Ejercicio.exe "src\\Persona.o" "src\\Practica_Clase8_Ejercicio.o" "src\\utn.o" 
+02:14:20 **** Incremental Build of configuration Debug for project Practica_Clase8_Ejercicio ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Persona.o" "..\\src\\Persona.c" 
+gcc -o Practica_Clase8_Ejercicio.exe "src\\Persona.o" "src\\Practica_Clase8_Ejercicio.o" "src\\utn.o" 
+Info: Nothing to build for Practica_Clase8_Ejercicio
+02:15:16 **** Incremental Build of configuration Debug for project Practica_Clase8_Ejercicio ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Persona.o" "..\\src\\Persona.c" 
+gcc -o Practica_Clase8_Ejercicio.exe "src\\Persona.o" "src\\Practica_Clase8_Ejercicio.o" "src\\utn.o" 
